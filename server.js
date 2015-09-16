@@ -3,6 +3,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     morgan = require('morgan'),
+    ejs = require('ejs'),
     db = require("./models"),
     apiRouter = express.Router();
 
@@ -21,9 +22,13 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use('/', apiRouter);
+
+
 app.get('/', function(req, res) {
-  res.send("Howdy!")
+  res.render('index')
 });
+
 
 apiRouter.route('/icecreams')
 .post(function(req,res){
@@ -65,7 +70,7 @@ apiRouter.route('/icecreams/:icecreamId')
   })
 })
 
-app.use('/', apiRouter);
+
 PORT = 3001
 
 app.listen(PORT,function(){
